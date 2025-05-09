@@ -1,0 +1,52 @@
+{
+    "attributes": [
+        "residence",
+        "given_name",
+        "forename",
+        "surname",
+        "family_name",
+        "sex",
+        "gender_identity",
+        "annual_salary",
+        "yearly_earnings"
+    ],
+    "duplicates": [
+        {
+            "attribute_name": "residence",
+            "is_duplicate": false
+        },
+        {
+            "attribute_name": "given_name",
+            "is_duplicate": false
+        },
+        {
+            "attribute_name": "forename",
+            "is_duplicate": false
+        },
+        {
+            "attribute_name": "surname",
+            "is_duplicate": false
+        },
+        {
+            "attribute_name": "family_name",
+            "is_duplicate": false
+        },
+        {
+            "attribute_name": "sex",
+            "is_duplicate": false
+        },
+        {
+            "attribute_name": "gender_identity",
+            "is_duplicate": false
+        },
+        {
+            "attribute_name": "annual_salary",
+            "is_duplicate": false
+        },
+        {
+            "attribute_name": "yearly_earnings",
+            "is_duplicate": false
+        }
+    ],
+    "duplicate_groups": {}
+}

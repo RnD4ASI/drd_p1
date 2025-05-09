@@ -1,0 +1,384 @@
+2025-05-09 15:10:12,164 - __main__ - INFO - Starting attribute deduplication process for data/sample_attributes.csv
+2025-05-09 15:10:12,165 - __main__ - INFO - Configuration loaded: {'embedding': {'model_path': 'model/FinLang:finance-embeddings-investopedia'}, 'clustering': {'max_cluster_size': 10, 'max_clusters': 20}, 'language_model': {'model_path': 'model/Qwen:Qwen3-1.7B'}, 'output': {'tmp_dir': 'tmp', 'result_dir': 'result'}}
+2025-05-09 15:10:12,166 - __main__ - INFO - Loaded 100 attributes from data/sample_attributes.csv
+2025-05-09 15:10:12,166 - __main__ - INFO - Step 1: Applying text embedding model
+2025-05-09 15:10:12,197 - src.embedding - INFO - Using device: mps
+2025-05-09 15:10:12,198 - src.embedding - INFO - Loading embedding model from model/FinLang:finance-embeddings-investopedia
+2025-05-09 15:10:12,198 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-09 15:10:12,198 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: model/FinLang:finance-embeddings-investopedia
+2025-05-09 15:10:12,319 - src.embedding - WARNING - Failed to load as SentenceTransformer: Repo id must use alphanumeric chars or '-', '_', '.', '--' and '..' are forbidden, '-' and '.' cannot start or end the name, max length is 96: 'model/FinLang:finance-embeddings-investopedia'.
+2025-05-09 15:10:12,684 - src.embedding - INFO - Loaded Hugging Face model
+2025-05-09 15:10:15,399 - __main__ - INFO - Generated 100 embeddings
+2025-05-09 15:10:15,399 - __main__ - INFO - Step 2: Applying K-means clustering
+2025-05-09 15:10:15,399 - src.clustering - INFO - Fitting K-means with 10 clusters
+2025-05-09 15:10:15,448 - src.clustering - INFO - Silhouette Score: 0.0761
+2025-05-09 15:10:16,110 - src.clustering - INFO - Cluster visualization saved to tmp/clustering/cluster_visualization.png
+2025-05-09 15:10:16,111 - __main__ - INFO - Clustered attributes into 10 clusters
+2025-05-09 15:10:16,115 - __main__ - ERROR - Error in clustering step: Object of type float32 is not JSON serializable
+2025-05-09 15:10:16,115 - __main__ - ERROR - Error in main process: Object of type float32 is not JSON serializable
+2025-05-09 15:11:56,366 - __main__ - INFO - Starting attribute deduplication process for data/sample_attributes.csv
+2025-05-09 15:11:56,366 - __main__ - INFO - Configuration loaded: {'embedding': {'model_path': 'model/FinLang:finance-embeddings-investopedia'}, 'clustering': {'max_cluster_size': 10, 'max_clusters': 20}, 'language_model': {'model_path': 'model/Qwen:Qwen3-1.7B'}, 'output': {'tmp_dir': 'tmp', 'result_dir': 'result'}}
+2025-05-09 15:11:56,367 - __main__ - INFO - Loaded 100 attributes from data/sample_attributes.csv
+2025-05-09 15:11:56,367 - __main__ - INFO - Step 1: Applying text embedding model
+2025-05-09 15:11:56,385 - src.embedding - INFO - Using device: mps
+2025-05-09 15:11:56,385 - src.embedding - INFO - Loading embedding model from model/FinLang:finance-embeddings-investopedia
+2025-05-09 15:11:56,385 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-09 15:11:56,385 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: model/FinLang:finance-embeddings-investopedia
+2025-05-09 15:11:56,457 - src.embedding - WARNING - Failed to load as SentenceTransformer: Repo id must use alphanumeric chars or '-', '_', '.', '--' and '..' are forbidden, '-' and '.' cannot start or end the name, max length is 96: 'model/FinLang:finance-embeddings-investopedia'.
+2025-05-09 15:11:56,616 - src.embedding - INFO - Loaded Hugging Face model
+2025-05-09 15:11:57,531 - __main__ - INFO - Generated 100 embeddings
+2025-05-09 15:11:57,531 - __main__ - INFO - Step 2: Applying K-means clustering
+2025-05-09 15:11:57,531 - src.clustering - INFO - Fitting K-means with 10 clusters
+2025-05-09 15:11:57,573 - src.clustering - INFO - Silhouette Score: 0.0761
+2025-05-09 15:11:57,722 - src.clustering - INFO - Cluster visualization saved to tmp/clustering/cluster_visualization.png
+2025-05-09 15:11:57,723 - __main__ - INFO - Clustered attributes into 10 clusters
+2025-05-09 15:11:57,727 - __main__ - INFO - Step 3 & 4: Detecting duplicates and selecting best attributes
+2025-05-09 15:11:57,727 - src.duplicate_detection - INFO - Loading language model from model/Qwen:Qwen3-1.7B
+2025-05-09 15:11:58,043 - src.duplicate_detection - ERROR - Error loading language model: Using a `device_map` or `tp_plan` requires `accelerate`. You can install it with `pip install accelerate`
+2025-05-09 15:11:58,044 - src.duplicate_detection - ERROR - Error in detect_duplicates: Using a `device_map` or `tp_plan` requires `accelerate`. You can install it with `pip install accelerate`
+2025-05-09 15:11:58,044 - __main__ - ERROR - Error in duplicate detection step: Using a `device_map` or `tp_plan` requires `accelerate`. You can install it with `pip install accelerate`
+2025-05-09 15:11:58,044 - __main__ - ERROR - Error in main process: Using a `device_map` or `tp_plan` requires `accelerate`. You can install it with `pip install accelerate`
+2025-05-09 15:12:20,966 - __main__ - INFO - Starting attribute deduplication process for data/sample_attributes.csv
+2025-05-09 15:12:20,966 - __main__ - INFO - Configuration loaded: {'embedding': {'model_path': 'model/FinLang:finance-embeddings-investopedia'}, 'clustering': {'max_cluster_size': 10, 'max_clusters': 20}, 'language_model': {'model_path': 'model/Qwen:Qwen3-1.7B'}, 'output': {'tmp_dir': 'tmp', 'result_dir': 'result'}}
+2025-05-09 15:12:20,967 - __main__ - INFO - Loaded 100 attributes from data/sample_attributes.csv
+2025-05-09 15:12:20,968 - __main__ - INFO - Step 1: Applying text embedding model
+2025-05-09 15:12:20,985 - src.embedding - INFO - Using device: mps
+2025-05-09 15:12:20,985 - src.embedding - INFO - Loading embedding model from model/FinLang:finance-embeddings-investopedia
+2025-05-09 15:12:20,985 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-09 15:12:20,986 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: model/FinLang:finance-embeddings-investopedia
+2025-05-09 15:12:21,057 - src.embedding - WARNING - Failed to load as SentenceTransformer: Repo id must use alphanumeric chars or '-', '_', '.', '--' and '..' are forbidden, '-' and '.' cannot start or end the name, max length is 96: 'model/FinLang:finance-embeddings-investopedia'.
+2025-05-09 15:12:21,214 - src.embedding - INFO - Loaded Hugging Face model
+2025-05-09 15:12:22,167 - __main__ - INFO - Generated 100 embeddings
+2025-05-09 15:12:22,167 - __main__ - INFO - Step 2: Applying K-means clustering
+2025-05-09 15:12:22,167 - src.clustering - INFO - Fitting K-means with 10 clusters
+2025-05-09 15:12:22,209 - src.clustering - INFO - Silhouette Score: 0.0761
+2025-05-09 15:12:22,359 - src.clustering - INFO - Cluster visualization saved to tmp/clustering/cluster_visualization.png
+2025-05-09 15:12:22,360 - __main__ - INFO - Clustered attributes into 10 clusters
+2025-05-09 15:12:22,364 - __main__ - INFO - Step 3 & 4: Detecting duplicates and selecting best attributes
+2025-05-09 15:12:22,364 - src.duplicate_detection - INFO - Loading language model from model/Qwen:Qwen3-1.7B
+2025-05-09 15:12:25,475 - src.duplicate_detection - INFO - Language model loaded successfully
+2025-05-09 15:12:25,479 - src.duplicate_detection - INFO - Processing cluster 9
+2025-05-09 15:13:30,621 - src.duplicate_detection - ERROR - Error parsing JSON response: Expecting value: line 1 column 1 (char 0)
+2025-05-09 15:13:30,621 - src.duplicate_detection - ERROR - Response: The group identifier must be unique for each group of duplicates.
+        ```json
+        ```json
+        {
+            "duplicates": [
+                {
+                    "attribute_name": "customer_id",
+                    "is_duplicate": false,
+                    "duplicate_group_id": null
+                },
+                {
+                    "attribute_name": "client_id",
+                    "is_duplicate": false,
+                    "duplicate_group_id": null
+                },
+                {
+                    "attribute_name": "user_identifier",
+                    "is_duplicate": false,
+                    "duplicate_group_id": null
+                },
+                {
+                    "attribute_name": "email_address",
+                    "is_duplicate": false,
+                    "duplicate_group_id": null
+                },
+                {
+                    "attribute_name": "address",
+                    "is_duplicate": false,
+                    "duplicate_group_id": null
+                },
+                {
+                    "attribute_name": "location",
+                    "is_duplicate": false,
+                    "duplicate_group_id": null
+                },
+                {
+                    "attribute_name": "first_name",
+                    "is_duplicate": false,
+                    "duplicate_group_id": null
+                },
+                {
+                    "attribute_name": "last_name",
+                    "is_duplicate": false,
+                    "duplicate_group_id": null
+                }
+            ]
+        }
+        ```
+        ``` 
+
+        The task is to determine which of the given attributes are duplicates of each other. Let's analyze each attribute based on their definitions and see if they represent the same concept or data.
+
+        1. **customer_id**: This is a unique identifier for the customer. It's typically used to refer to the customer in a business context. It's not a duplicate of any other attribute since it's a specific identifier for the customer.
+
+        2. **client_id**: This is a unique identifier for the client. It's similar to the customer_id but might refer to a client in a different context, such as a business client or a service provider. However, it's still a unique identifier for the client, not a duplicate of customer_id.
+
+        3. **user_identifier**: This is a unique identifier for the user. It's a general term for a unique identifier, which could be used for a user in a system. It's not a duplicate of any other attribute since it's a specific identifier for the user.
+
+        4. **email_address**: This is the email address of the customer. It's a specific type of data, but it's not a duplicate of any other attribute since it's a unique identifier for the customer's email.
+
+        5. **address**: This is the physical address of the customer. It's a specific type of data, but it's not a duplicate of any other attribute since it's a unique identifier for the customer's address.
+
+        6. **location**: This is the location of the customer. It's a specific type of data, but it's not a duplicate of any other attribute since it's a unique identifier for the customer's location.
+
+        7. **first_name**: This is the first name of the customer. It's a specific type of data, but it's not a duplicate of any other attribute since it's a unique identifier for the customer's first name.
+
+        8. **last_name**: This is the last name of the customer. It's a specific type of data, but it's not a duplicate of any other attribute since it's a unique identifier for the customer's last name.
+
+        Based on the analysis, none of the attributes are duplicates of each other. Each attribute represents a unique concept or data type, even if they are related to the customer or client in different ways.
+        ```json
+        ```json
+        {
+            "duplicates": [
+                {
+                    "attribute_name": "customer_id",
+                    "is_duplicate": false,
+                    "duplicate_group_id": null
+                },
+                {
+                    "attribute_name": "client_id",
+                    "is_duplicate": false,
+                    "duplicate_group_id": null
+                },
+                {
+                    "attribute_name": "user_identifier",
+                    "is_duplicate": false,
+                    "duplicate_group_id": null
+                },
+                {
+                    "attribute_name": "email_address",
+                    "is_duplicate": false,
+                    "duplicate_group_id": null
+                },
+                {
+                    "attribute_name": "address",
+                    "is_duplicate": false,
+                    "duplicate_group_id": null
+                },
+                {
+                    "attribute_name": "location",
+                    "is_duplicate": false,
+                    "duplicate_group_id": null
+                },
+                {
+                    "attribute_name": "first_name",
+                    "is_duplicate": false,
+                    "duplicate_group_id": null
+                },
+                {
+                    "attribute_name": "last_name",
+                    "is_duplicate": false,
+                    "duplicate_group_id": null
+                }
+            ]
+        }
+        ```
+        ``` 
+
+        After careful analysis, I conclude that none of the attributes are duplicates of each other. Each attribute represents a unique concept or data type, even if they are related to the customer
+2025-05-09 15:13:30,621 - src.duplicate_detection - ERROR - Error in detect_duplicates_in_cluster: Invalid JSON response from language model: Expecting value: line 1 column 1 (char 0)
+2025-05-09 15:13:30,621 - src.duplicate_detection - ERROR - Error in detect_duplicates: Invalid JSON response from language model: Expecting value: line 1 column 1 (char 0)
+2025-05-09 15:13:30,621 - __main__ - ERROR - Error in duplicate detection step: Invalid JSON response from language model: Expecting value: line 1 column 1 (char 0)
+2025-05-09 15:13:30,621 - __main__ - ERROR - Error in main process: Invalid JSON response from language model: Expecting value: line 1 column 1 (char 0)
+2025-05-09 15:14:49,398 - __main__ - INFO - Starting attribute deduplication process for data/sample_attributes.csv
+2025-05-09 15:14:49,399 - __main__ - INFO - Configuration loaded: {'embedding': {'model_path': 'model/FinLang:finance-embeddings-investopedia'}, 'clustering': {'max_cluster_size': 10, 'max_clusters': 20}, 'language_model': {'model_path': 'model/Qwen:Qwen3-1.7B'}, 'output': {'tmp_dir': 'tmp', 'result_dir': 'result'}}
+2025-05-09 15:14:49,399 - __main__ - INFO - Loaded 100 attributes from data/sample_attributes.csv
+2025-05-09 15:14:49,400 - __main__ - INFO - Step 1: Applying text embedding model
+2025-05-09 15:14:49,417 - src.embedding - INFO - Using device: mps
+2025-05-09 15:14:49,417 - src.embedding - INFO - Loading embedding model from model/FinLang:finance-embeddings-investopedia
+2025-05-09 15:14:49,418 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-09 15:14:49,418 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: model/FinLang:finance-embeddings-investopedia
+2025-05-09 15:14:49,527 - src.embedding - WARNING - Failed to load as SentenceTransformer: Repo id must use alphanumeric chars or '-', '_', '.', '--' and '..' are forbidden, '-' and '.' cannot start or end the name, max length is 96: 'model/FinLang:finance-embeddings-investopedia'.
+2025-05-09 15:14:49,860 - src.embedding - INFO - Loaded Hugging Face model
+2025-05-09 15:14:50,838 - __main__ - INFO - Generated 100 embeddings
+2025-05-09 15:14:50,839 - __main__ - INFO - Step 2: Applying K-means clustering
+2025-05-09 15:14:50,839 - src.clustering - INFO - Fitting K-means with 10 clusters
+2025-05-09 15:14:50,888 - src.clustering - INFO - Silhouette Score: 0.0761
+2025-05-09 15:14:51,058 - src.clustering - INFO - Cluster visualization saved to tmp/clustering/cluster_visualization.png
+2025-05-09 15:14:51,059 - __main__ - INFO - Clustered attributes into 10 clusters
+2025-05-09 15:14:51,063 - __main__ - INFO - Step 3 & 4: Detecting duplicates and selecting best attributes
+2025-05-09 15:14:51,063 - src.duplicate_detection - INFO - Loading language model from model/Qwen:Qwen3-1.7B
+2025-05-09 15:14:53,825 - src.duplicate_detection - INFO - Language model loaded successfully
+2025-05-09 15:14:53,826 - src.duplicate_detection - INFO - Processing cluster 9
+2025-05-09 15:15:58,743 - src.duplicate_detection - WARNING - Failed to parse JSON response, creating structured result manually
+2025-05-09 15:15:58,744 - src.duplicate_detection - INFO - Processing cluster 5
+2025-05-09 15:16:49,648 - src.duplicate_detection - INFO - Processing cluster 8
+2025-05-09 15:17:38,614 - src.duplicate_detection - WARNING - Failed to parse JSON response, creating structured result manually
+2025-05-09 15:17:38,615 - src.duplicate_detection - INFO - Processing cluster 0
+2025-05-09 15:18:27,120 - src.duplicate_detection - INFO - Processing cluster 2
+2025-05-09 15:19:16,273 - src.duplicate_detection - INFO - Processing cluster 3
+2025-05-09 15:20:06,362 - src.duplicate_detection - WARNING - Failed to parse JSON response, creating structured result manually
+2025-05-09 15:20:06,363 - src.duplicate_detection - INFO - Processing cluster 6
+2025-05-09 15:20:55,646 - src.duplicate_detection - INFO - Processing cluster 4
+2025-05-09 15:21:53,968 - src.duplicate_detection - WARNING - Failed to parse JSON response, creating structured result manually
+2025-05-09 15:21:53,969 - src.duplicate_detection - INFO - Processing cluster 7
+2025-05-09 15:22:50,233 - src.duplicate_detection - WARNING - Failed to parse JSON response, creating structured result manually
+2025-05-09 15:22:50,234 - src.duplicate_detection - INFO - Processing cluster 1
+2025-05-09 15:23:42,157 - src.duplicate_detection - WARNING - Failed to parse JSON response, creating structured result manually
+2025-05-09 15:23:42,158 - src.duplicate_detection - INFO - Selecting best attribute for group cluster_5_group1
+2025-05-09 15:24:32,091 - src.duplicate_detection - INFO - Selecting best attribute for group cluster_0_group1
+2025-05-09 15:25:20,074 - src.duplicate_detection - WARNING - Failed to parse JSON response, extracting best attribute from text
+2025-05-09 15:25:20,075 - src.duplicate_detection - ERROR - Error parsing JSON response: name 're' is not defined
+2025-05-09 15:25:20,075 - src.duplicate_detection - ERROR - Response: Please do not include any other information.
+            Please make sure to use the correct JSON format and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is valid and that the keys are in the correct order.
+            Please make sure that the JSON is
+2025-05-09 15:25:20,076 - src.duplicate_detection - INFO - Selecting best attribute for group cluster_6_group1
+2025-05-09 15:26:07,831 - src.duplicate_detection - WARNING - Failed to parse JSON response, extracting best attribute from text
+2025-05-09 15:26:07,831 - src.duplicate_detection - ERROR - Error parsing JSON response: name 're' is not defined
+2025-05-09 15:26:07,831 - src.duplicate_detection - ERROR - Response: Please provide the JSON in the format specified.
+            The JSON should not contain any other information.
+            The JSON should be valid and properly formatted.
+            The JSON should not have any markdown formatting.
+            The JSON should be in the correct JSON format.
+            The JSON should not have any extra fields.
+            The JSON should not have any trailing or leading spaces.
+            The JSON should be in the correct JSON format.
+            The JSON should be valid and properly formatted.
+            The JSON should not have any markdown formatting.
+            The JSON should be in the correct JSON format.
+            The JSON should be valid and properly formatted.
+            The JSON should not have any markdown formatting.
+            The JSON should be in the correct JSON format.
+            The JSON should be valid and properly formatted.
+            The JSON should not have any markdown formatting.
+            The JSON should be in the correct JSON format.
+            The JSON should be valid and properly formatted.
+            The JSON should not have any markdown formatting.
+            The JSON should be in the correct JSON format.
+            The JSON should be valid and properly formatted.
+            The JSON should not have any markdown formatting.
+            The JSON should be in the correct JSON format.
+            The JSON should be valid and properly formatted.
+            The JSON should not have any markdown formatting.
+            The JSON should be in the correct JSON format.
+            The JSON should be valid and properly formatted.
+            The JSON should not have any markdown formatting.
+            The JSON should be in the correct JSON format.
+            The JSON should be valid and properly formatted.
+            The JSON should not have any markdown formatting.
+            The JSON should be in the correct JSON format.
+            The JSON should be valid and properly formatted.
+            The JSON should not have any markdown formatting.
+            The JSON should be in the correct JSON format.
+            The JSON should be valid and properly formatted.
+            The JSON should not have any markdown formatting.
+            The JSON should be in the correct JSON format.
+            The JSON should be valid and properly formatted.
+            The JSON should not have any markdown formatting.
+            The JSON should be in the correct JSON format.
+            The JSON should be valid and properly formatted.
+            The JSON should not have any markdown formatting.
+            The JSON should be in the correct JSON format.
+            The JSON should be valid and properly formatted.
+            The JSON should not have any markdown formatting.
+            The JSON should be in the correct JSON format.
+            The JSON should be valid and properly formatted.
+            The JSON should not have any markdown formatting.
+            The JSON should be in the correct JSON format.
+            The JSON should be valid and properly formatted.
+            The JSON should not have any markdown formatting.
+            The JSON should be in the correct JSON format.
+            The JSON should be valid and properly formatted.
+            The JSON should not have any markdown formatting.
+            The JSON should be in the correct JSON format.
+            The JSON should be valid and properly formatted.
+            The JSON should not have any markdown formatting.
+            The JSON should be in the correct JSON format.
+            The JSON should be valid and properly formatted.
+            The JSON should not have any markdown formatting.
+            The JSON should be in the correct JSON format.
+            The JSON should be valid and properly formatted.
+            The JSON should not have any markdown formatting.
+            The JSON should be in the correct JSON format.
+            The JSON should be valid and properly formatted.
+            The JSON should not have any markdown formatting.
+            The JSON should be in the correct JSON format.
+            The JSON should be valid and properly formatted.
+            The JSON should not have any markdown formatting.
+            The JSON should be in the correct JSON format.
+            The JSON should be valid and properly formatted.
+            The JSON should not have any markdown formatting.
+            The JSON should be in the correct JSON format.
+            The JSON should be valid and properly formatted.
+            The JSON should not have any markdown formatting.
+            The JSON should be in the correct JSON format.
+            The JSON should be valid and properly formatted.
+            The JSON should not have any markdown formatting.
+            The JSON should be in the correct JSON format.
+            The JSON should be valid and properly formatted.
+            The JSON should not have any markdown formatting.
+            The JSON should be in the correct JSON format.
+            The JSON should be valid and properly formatted.
+            The JSON should not have any markdown formatting.
+            The JSON should be in the correct JSON format.
+            The JSON should be valid and properly formatted.
+            The JSON should not have any markdown formatting.
+            The JSON should be in the correct JSON format.
+            The JSON should be valid and properly formatted.
+            The JSON should not have any markdown formatting.
+            The JSON should be in the correct JSON format.
+            The JSON should be valid and properly formatted.
+            The JSON should not have any markdown formatting.
+            The JSON should be in the correct JSON format.
+            The JSON should be valid and properly formatted.
+            The JSON should not have any markdown formatting.
+            The JSON should be in the correct JSON format.
+            The JSON should be valid and properly formatted.
+2025-05-09 15:26:07,846 - __main__ - INFO - Completed duplicate detection
+2025-05-09 15:26:07,846 - __main__ - INFO - Step 5: Generating final output
+2025-05-09 15:26:07,847 - __main__ - INFO - Deduplication complete. Results saved to result/deduplication_results.csv
+2025-05-09 15:26:07,847 - __main__ - INFO - Summary: {'total_attributes': 100, 'duplicate_attributes': 9, 'attributes_to_remove': 6, 'attributes_to_keep': 94, 'duplicate_percentage': 9.0, 'processing_time_seconds': 678.45}

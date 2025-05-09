@@ -1,0 +1,8 @@
+{
+    "total_attributes": 100,
+    "duplicate_attributes": 9,
+    "attributes_to_remove": 6,
+    "attributes_to_keep": 94,
+    "duplicate_percentage": 9.0,
+    "processing_time_seconds": 678.45
+}

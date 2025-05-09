@@ -1,0 +1,107 @@
+{
+    "attributes": [
+        "attribute_7",
+        "attribute_13",
+        "attribute_17",
+        "attribute_19",
+        "attribute_21",
+        "attribute_27",
+        "attribute_31",
+        "attribute_32",
+        "attribute_33",
+        "attribute_34",
+        "attribute_37",
+        "attribute_39",
+        "attribute_42",
+        "attribute_43",
+        "attribute_47",
+        "attribute_49",
+        "attribute_51",
+        "attribute_52",
+        "attribute_53",
+        "attribute_61"
+    ],
+    "duplicates": [
+        {
+            "attribute_name": "attribute_7",
+            "is_duplicate": false
+        },
+        {
+            "attribute_name": "attribute_13",
+            "is_duplicate": false
+        },
+        {
+            "attribute_name": "attribute_17",
+            "is_duplicate": false
+        },
+        {
+            "attribute_name": "attribute_19",
+            "is_duplicate": false
+        },
+        {
+            "attribute_name": "attribute_21",
+            "is_duplicate": false
+        },
+        {
+            "attribute_name": "attribute_27",
+            "is_duplicate": false
+        },
+        {
+            "attribute_name": "attribute_31",
+            "is_duplicate": false
+        },
+        {
+            "attribute_name": "attribute_32",
+            "is_duplicate": false
+        },
+        {
+            "attribute_name": "attribute_33",
+            "is_duplicate": false
+        },
+        {
+            "attribute_name": "attribute_34",
+            "is_duplicate": false
+        },
+        {
+            "attribute_name": "attribute_37",
+            "is_duplicate": false
+        },
+        {
+            "attribute_name": "attribute_39",
+            "is_duplicate": false
+        },
+        {
+            "attribute_name": "attribute_42",
+            "is_duplicate": false
+        },
+        {
+            "attribute_name": "attribute_43",
+            "is_duplicate": false
+        },
+        {
+            "attribute_name": "attribute_47",
+            "is_duplicate": false
+        },
+        {
+            "attribute_name": "attribute_49",
+            "is_duplicate": false
+        },
+        {
+            "attribute_name": "attribute_51",
+            "is_duplicate": false
+        },
+        {
+            "attribute_name": "attribute_52",
+            "is_duplicate": false
+        },
+        {
+            "attribute_name": "attribute_53",
+            "is_duplicate": false
+        },
+        {
+            "attribute_name": "attribute_61",
+            "is_duplicate": false
+        }
+    ],
+    "duplicate_groups": {}
+}

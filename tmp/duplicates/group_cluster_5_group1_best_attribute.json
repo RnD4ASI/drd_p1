@@ -1,0 +1,9 @@
+{
+    "group_id": "cluster_5_group1",
+    "attributes": [
+        "transaction_amount",
+        "payment_value",
+        "monetary_sum"
+    ],
+    "best_attribute": "transaction_amount"
+}

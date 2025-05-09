@@ -1,0 +1,101 @@
+attribute_name,attribute_definition,cluster_id
+customer_id,Unique identifier for the customer,9
+client_id,Unique identifier for the client,9
+user_identifier,Unique identifier for the user,9
+transaction_amount,Amount of the transaction in dollars,5
+payment_value,Value of the payment in dollars,5
+monetary_sum,Sum of money in dollars,5
+product_category,Category of the product,8
+item_type,Type of the item,8
+product_classification,Classification of the product,8
+timestamp,Time when the event occurred,0
+event_time,Time when the event took place,0
+transaction_datetime,Date and time of the transaction,0
+email_address,Email address of the customer,9
+contact_email,Email contact information,2
+electronic_mail,Electronic mail address for communication,2
+phone_number,Phone number of the customer,2
+contact_phone,Phone contact information,2
+telephone,Telephone number for communication,2
+address,Physical address of the customer,9
+location,Location of the customer,9
+residence,Place of residence,3
+first_name,First name of the customer,9
+given_name,Given name of the person,3
+forename,Forename of the individual,3
+last_name,Last name of the customer,9
+surname,Surname of the person,3
+family_name,Family name of the individual,3
+age,Age of the customer in years,6
+years_old,How old the person is in years,6
+customer_age,Age of the customer,6
+gender,Gender of the customer,6
+sex,Sex of the person,3
+gender_identity,Gender identity of the individual,3
+income,Annual income of the customer,6
+annual_salary,Annual salary of the person,3
+yearly_earnings,Yearly earnings of the individual,3
+attribute_0,Definition for attribute_0,4
+attribute_1,Definition for attribute_1,7
+attribute_2,Definition for attribute_2,7
+attribute_3,Definition for attribute_3,7
+attribute_4,Definition for attribute_4,7
+attribute_5,Definition for attribute_5,4
+attribute_6,Definition for attribute_6,7
+attribute_7,Definition for attribute_7,1
+attribute_8,Definition for attribute_8,7
+attribute_9,Definition for attribute_9,4
+attribute_10,Definition for attribute_10,4
+attribute_11,Definition for attribute_11,7
+attribute_12,Definition for attribute_12,7
+attribute_13,Definition for attribute_13,1
+attribute_14,Definition for attribute_14,7
+attribute_15,Definition for attribute_15,4
+attribute_16,Definition for attribute_16,7
+attribute_17,Definition for attribute_17,1
+attribute_18,Definition for attribute_18,7
+attribute_19,Definition for attribute_19,1
+attribute_20,Definition for attribute_20,4
+attribute_21,Definition for attribute_21,1
+attribute_22,Definition for attribute_22,4
+attribute_23,Definition for attribute_23,4
+attribute_24,Definition for attribute_24,7
+attribute_25,Definition for attribute_25,4
+attribute_26,Definition for attribute_26,7
+attribute_27,Definition for attribute_27,1
+attribute_28,Definition for attribute_28,7
+attribute_29,Definition for attribute_29,7
+attribute_30,Definition for attribute_30,4
+attribute_31,Definition for attribute_31,1
+attribute_32,Definition for attribute_32,1
+attribute_33,Definition for attribute_33,1
+attribute_34,Definition for attribute_34,1
+attribute_35,Definition for attribute_35,4
+attribute_36,Definition for attribute_36,7
+attribute_37,Definition for attribute_37,1
+attribute_38,Definition for attribute_38,7
+attribute_39,Definition for attribute_39,1
+attribute_40,Definition for attribute_40,4
+attribute_41,Definition for attribute_41,7
+attribute_42,Definition for attribute_42,1
+attribute_43,Definition for attribute_43,1
+attribute_44,Definition for attribute_44,7
+attribute_45,Definition for attribute_45,4
+attribute_46,Definition for attribute_46,7
+attribute_47,Definition for attribute_47,1
+attribute_48,Definition for attribute_48,7
+attribute_49,Definition for attribute_49,1
+attribute_50,Definition for attribute_50,4
+attribute_51,Definition for attribute_51,1
+attribute_52,Definition for attribute_52,1
+attribute_53,Definition for attribute_53,1
+attribute_54,Definition for attribute_54,7
+attribute_55,Definition for attribute_55,4
+attribute_56,Definition for attribute_56,7
+attribute_57,Definition for attribute_57,4
+attribute_58,Definition for attribute_58,4
+attribute_59,Definition for attribute_59,4
+attribute_60,Definition for attribute_60,4
+attribute_61,Definition for attribute_61,1
+attribute_62,Definition for attribute_62,7
+attribute_63,Definition for attribute_63,7

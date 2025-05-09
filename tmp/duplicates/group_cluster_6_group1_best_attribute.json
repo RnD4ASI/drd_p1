@@ -1,0 +1,9 @@
+{
+    "group_id": "cluster_6_group1",
+    "attributes": [
+        "age",
+        "years_old",
+        "customer_age"
+    ],
+    "best_attribute": "age"
+}

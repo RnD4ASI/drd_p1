@@ -1,0 +1,47 @@
+{
+    "attributes": [
+        "customer_id",
+        "client_id",
+        "user_identifier",
+        "email_address",
+        "address",
+        "location",
+        "first_name",
+        "last_name"
+    ],
+    "duplicates": [
+        {
+            "attribute_name": "customer_id",
+            "is_duplicate": false
+        },
+        {
+            "attribute_name": "client_id",
+            "is_duplicate": false
+        },
+        {
+            "attribute_name": "user_identifier",
+            "is_duplicate": false
+        },
+        {
+            "attribute_name": "email_address",
+            "is_duplicate": false
+        },
+        {
+            "attribute_name": "address",
+            "is_duplicate": false
+        },
+        {
+            "attribute_name": "location",
+            "is_duplicate": false
+        },
+        {
+            "attribute_name": "first_name",
+            "is_duplicate": false
+        },
+        {
+            "attribute_name": "last_name",
+            "is_duplicate": false
+        }
+    ],
+    "duplicate_groups": {}
+}

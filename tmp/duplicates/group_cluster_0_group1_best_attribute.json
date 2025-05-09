@@ -1,0 +1,9 @@
+{
+    "group_id": "cluster_0_group1",
+    "attributes": [
+        "timestamp",
+        "event_time",
+        "transaction_datetime"
+    ],
+    "best_attribute": "timestamp"
+}

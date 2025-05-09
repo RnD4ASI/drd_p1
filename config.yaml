@@ -1,0 +1,29 @@
+embedding:
+  # Path to the embedding model or Azure OpenAI model name
+  model_path: "model/FinLang:finance-embeddings-investopedia"
+  # Provider for the embedding model: "huggingface" or "azure_openai"
+  provider: "huggingface"
+  # Uncomment and modify the following line to use Azure OpenAI for embeddings
+  # model_path: "text-embedding-ada-002"
+  # provider: "azure_openai"
+
+clustering:
+  # Maximum size of each cluster
+  max_cluster_size: 10
+  # Maximum number of clusters
+  max_clusters: 20
+
+language_model:
+  # Path to the language model or Azure OpenAI model deployment name
+  model_path: "model/Qwen:Qwen3-1.7B"
+  # Provider for the language model: "huggingface" or "azure_openai"
+  provider: "huggingface"
+  # Uncomment and modify the following lines to use Azure OpenAI for language model
+  # model_path: "gpt-4o"
+  # provider: "azure_openai"
+
+output:
+  # Directory for temporary files
+  tmp_dir: "tmp"
+  # Directory for final results
+  result_dir: "result"

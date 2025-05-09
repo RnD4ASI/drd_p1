@@ -1,0 +1,37 @@
+{
+    "attributes": [
+        "contact_email",
+        "electronic_mail",
+        "phone_number",
+        "contact_phone",
+        "telephone"
+    ],
+    "duplicates": [
+        {
+            "attribute_name": "contact_email",
+            "is_duplicate": false,
+            "duplicate_group_id": null
+        },
+        {
+            "attribute_name": "electronic_mail",
+            "is_duplicate": false,
+            "duplicate_group_id": null
+        },
+        {
+            "attribute_name": "phone_number",
+            "is_duplicate": false,
+            "duplicate_group_id": null
+        },
+        {
+            "attribute_name": "contact_phone",
+            "is_duplicate": false,
+            "duplicate_group_id": null
+        },
+        {
+            "attribute_name": "telephone",
+            "is_duplicate": false,
+            "duplicate_group_id": null
+        }
+    ],
+    "duplicate_groups": {}
+}

@@ -1,0 +1,101 @@
+attribute_name,attribute_definition,is_duplicate,duplicate_group_id,should_remove
+customer_id,Unique identifier for the customer,False,,False
+client_id,Unique identifier for the client,False,,False
+user_identifier,Unique identifier for the user,False,,False
+transaction_amount,Amount of the transaction in dollars,True,cluster_5_group1,False
+payment_value,Value of the payment in dollars,True,cluster_5_group1,True
+monetary_sum,Sum of money in dollars,True,cluster_5_group1,True
+product_category,Category of the product,False,,False
+item_type,Type of the item,False,,False
+product_classification,Classification of the product,False,,False
+timestamp,Time when the event occurred,True,cluster_0_group1,False
+event_time,Time when the event took place,True,cluster_0_group1,True
+transaction_datetime,Date and time of the transaction,True,cluster_0_group1,True
+email_address,Email address of the customer,False,,False
+contact_email,Email contact information,False,,False
+electronic_mail,Electronic mail address for communication,False,,False
+phone_number,Phone number of the customer,False,,False
+contact_phone,Phone contact information,False,,False
+telephone,Telephone number for communication,False,,False
+address,Physical address of the customer,False,,False
+location,Location of the customer,False,,False
+residence,Place of residence,False,,False
+first_name,First name of the customer,False,,False
+given_name,Given name of the person,False,,False
+forename,Forename of the individual,False,,False
+last_name,Last name of the customer,False,,False
+surname,Surname of the person,False,,False
+family_name,Family name of the individual,False,,False
+age,Age of the customer in years,True,cluster_6_group1,False
+years_old,How old the person is in years,True,cluster_6_group1,True
+customer_age,Age of the customer,True,cluster_6_group1,True
+gender,Gender of the customer,False,,False
+sex,Sex of the person,False,,False
+gender_identity,Gender identity of the individual,False,,False
+income,Annual income of the customer,False,,False
+annual_salary,Annual salary of the person,False,,False
+yearly_earnings,Yearly earnings of the individual,False,,False
+attribute_0,Definition for attribute_0,False,,False
+attribute_1,Definition for attribute_1,False,,False
+attribute_2,Definition for attribute_2,False,,False
+attribute_3,Definition for attribute_3,False,,False
+attribute_4,Definition for attribute_4,False,,False
+attribute_5,Definition for attribute_5,False,,False
+attribute_6,Definition for attribute_6,False,,False
+attribute_7,Definition for attribute_7,False,,False
+attribute_8,Definition for attribute_8,False,,False
+attribute_9,Definition for attribute_9,False,,False
+attribute_10,Definition for attribute_10,False,,False
+attribute_11,Definition for attribute_11,False,,False
+attribute_12,Definition for attribute_12,False,,False
+attribute_13,Definition for attribute_13,False,,False
+attribute_14,Definition for attribute_14,False,,False
+attribute_15,Definition for attribute_15,False,,False
+attribute_16,Definition for attribute_16,False,,False
+attribute_17,Definition for attribute_17,False,,False
+attribute_18,Definition for attribute_18,False,,False
+attribute_19,Definition for attribute_19,False,,False
+attribute_20,Definition for attribute_20,False,,False
+attribute_21,Definition for attribute_21,False,,False
+attribute_22,Definition for attribute_22,False,,False
+attribute_23,Definition for attribute_23,False,,False
+attribute_24,Definition for attribute_24,False,,False
+attribute_25,Definition for attribute_25,False,,False
+attribute_26,Definition for attribute_26,False,,False
+attribute_27,Definition for attribute_27,False,,False
+attribute_28,Definition for attribute_28,False,,False
+attribute_29,Definition for attribute_29,False,,False
+attribute_30,Definition for attribute_30,False,,False
+attribute_31,Definition for attribute_31,False,,False
+attribute_32,Definition for attribute_32,False,,False
+attribute_33,Definition for attribute_33,False,,False
+attribute_34,Definition for attribute_34,False,,False
+attribute_35,Definition for attribute_35,False,,False
+attribute_36,Definition for attribute_36,False,,False
+attribute_37,Definition for attribute_37,False,,False
+attribute_38,Definition for attribute_38,False,,False
+attribute_39,Definition for attribute_39,False,,False
+attribute_40,Definition for attribute_40,False,,False
+attribute_41,Definition for attribute_41,False,,False
+attribute_42,Definition for attribute_42,False,,False
+attribute_43,Definition for attribute_43,False,,False
+attribute_44,Definition for attribute_44,False,,False
+attribute_45,Definition for attribute_45,False,,False
+attribute_46,Definition for attribute_46,False,,False
+attribute_47,Definition for attribute_47,False,,False
+attribute_48,Definition for attribute_48,False,,False
+attribute_49,Definition for attribute_49,False,,False
+attribute_50,Definition for attribute_50,False,,False
+attribute_51,Definition for attribute_51,False,,False
+attribute_52,Definition for attribute_52,False,,False
+attribute_53,Definition for attribute_53,False,,False
+attribute_54,Definition for attribute_54,False,,False
+attribute_55,Definition for attribute_55,False,,False
+attribute_56,Definition for attribute_56,False,,False
+attribute_57,Definition for attribute_57,False,,False
+attribute_58,Definition for attribute_58,False,,False
+attribute_59,Definition for attribute_59,False,,False
+attribute_60,Definition for attribute_60,False,,False
+attribute_61,Definition for attribute_61,False,,False
+attribute_62,Definition for attribute_62,False,,False
+attribute_63,Definition for attribute_63,False,,False

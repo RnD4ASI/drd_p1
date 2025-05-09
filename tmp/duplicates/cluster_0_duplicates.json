@@ -1,0 +1,31 @@
+{
+    "attributes": [
+        "timestamp",
+        "event_time",
+        "transaction_datetime"
+    ],
+    "duplicates": [
+        {
+            "attribute_name": "timestamp",
+            "is_duplicate": true,
+            "duplicate_group_id": "group1"
+        },
+        {
+            "attribute_name": "event_time",
+            "is_duplicate": true,
+            "duplicate_group_id": "group1"
+        },
+        {
+            "attribute_name": "transaction_datetime",
+            "is_duplicate": true,
+            "duplicate_group_id": "group1"
+        }
+    ],
+    "duplicate_groups": {
+        "group1": [
+            "timestamp",
+            "event_time",
+            "transaction_datetime"
+        ]
+    }
+}
