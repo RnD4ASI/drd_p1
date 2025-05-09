@@ -8,6 +8,7 @@ from typing import Dict, Any, Optional
 import json
 import yaml
 import time
+from datetime import datetime
 from dotenv import load_dotenv
 
 from src.utility import DataUtility
@@ -15,16 +16,17 @@ from src.embedding import embed_attributes
 from src.clustering import cluster_embeddings
 from src.duplicate_detection import detect_duplicates
 
-# Configure logging
+# Configure logging - basic setup for initial startup
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.StreamHandler(),
-        logging.FileHandler('deduplication.log')
+        logging.StreamHandler()
     ]
 )
 logger = logging.getLogger(__name__)
+
+# Will be updated with file handler for each run
 
 def load_config(config_path: Optional[str] = None) -> Dict[str, Any]:
     """Load configuration from file or use default configuration.
@@ -74,26 +76,43 @@ def load_config(config_path: Optional[str] = None) -> Dict[str, Any]:
     
     return config
 
-def process_attributes(input_file: str, config_path: Optional[str] = None) -> str:
+def process_attributes(input_file: str, config_path: Optional[str] = None, previous_results: Optional[str] = None, incremental: bool = False, run_id: Optional[str] = None) -> str:
+    logger.info("========== STARTING ATTRIBUTE PROCESSING ==========")
     """Process data attributes to identify duplicates.
     
     Parameters:
         input_file (str): Path to the input CSV file
         config_path (Optional[str]): Path to the configuration file
+        previous_results (Optional[str]): Path to previous deduplication results (for incremental mode)
+        incremental (bool): Whether to run in incremental mode
+        run_id (Optional[str]): Custom run ID for the deduplication process
         
     Returns:
         str: Path to the output CSV file
     """
     start_time = time.time()
-    logger.info(f"Starting attribute deduplication process for {input_file}")
     
     # Load configuration
+    logger.info("Loading configuration...")
     config = load_config(config_path)
-    logger.info(f"Configuration loaded: {config}")
+    logger.info(f"Configuration loaded: Using {config['language_model']['provider']} model {config['language_model']['model_path']}")
     
-    # Create output directories
-    tmp_dir = Path(config["output"]["tmp_dir"])
-    result_dir = Path(config["output"]["result_dir"])
+    # Generate a unique run ID if not provided
+    if not run_id:
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        batch_name = Path(input_file).stem
+        run_id = f"{timestamp}_{batch_name}"
+    
+    # Create organized output directories
+    logger.info("Setting up directory structure...")
+    base_tmp_dir = Path(config["output"]["tmp_dir"])
+    base_result_dir = Path(config["output"]["result_dir"])
+    
+    # Create run-specific directories
+    tmp_dir = base_tmp_dir / run_id
+    result_dir = base_result_dir / run_id
+    
+    # Create all necessary directories
     os.makedirs(tmp_dir, exist_ok=True)
     os.makedirs(result_dir, exist_ok=True)
     
@@ -101,18 +120,69 @@ def process_attributes(input_file: str, config_path: Optional[str] = None) -> st
     embedding_dir = tmp_dir / "embeddings"
     clustering_dir = tmp_dir / "clustering"
     duplicate_dir = tmp_dir / "duplicates"
+    llm_responses_dir = tmp_dir / "llm_responses"
     os.makedirs(embedding_dir, exist_ok=True)
     os.makedirs(clustering_dir, exist_ok=True)
     os.makedirs(duplicate_dir, exist_ok=True)
+    os.makedirs(llm_responses_dir, exist_ok=True)
     
-    # Load input data
+    # Set up logging for this run
+    log_file = result_dir / "deduplication.log"
+    file_handler = logging.FileHandler(log_file)
+    file_handler.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
+    logger.addHandler(file_handler)
+    
+    # Log the start of the run
+    logger.info(f"Starting deduplication run: {run_id}")
+    logger.info(f"Input file: {input_file}")
+    logger.info(f"Mode: {'Incremental' if incremental else 'Standard'}")
+    
+    # Make sure to remove the file handler at the end of the function
     try:
+        logger.info("Initializing data utility...")
         data_utility = DataUtility()
-        attributes_df = data_utility.text_operation('load', input_file, file_type='csv')
-        logger.info(f"Loaded {len(attributes_df)} attributes from {input_file}")
+        
+        # Handle incremental mode
+        if incremental and previous_results:
+            # Load previous deduplication results
+            logger.info(f"Loading previous deduplication results from {previous_results}")
+            logger.info("PROGRESS: 10% - Loading previous results")
+            previous_df = data_utility.text_operation('load', previous_results, file_type='csv')
+            
+            # Keep only non-duplicate or best attributes from previous results
+            previous_keep_df = previous_df[~previous_df['should_remove']].copy()
+            previous_keep_df['source'] = 'existing'
+            previous_keep_df['first_seen_in_round'] = 1 if 'first_seen_in_round' not in previous_keep_df.columns else previous_keep_df['first_seen_in_round']
+            logger.info(f"Kept {len(previous_keep_df)} attributes from previous results")
+            
+            # Load new attributes
+            logger.info(f"Loading new attributes from {input_file}")
+            new_attributes_df = data_utility.text_operation('load', input_file, file_type='csv')
+            new_attributes_df['source'] = 'new'
+            new_attributes_df['first_seen_in_round'] = 2  # Mark as seen in round 2
+            logger.info(f"Loaded {len(new_attributes_df)} new attributes from {input_file}")
+            logger.info("PROGRESS: 15% - Loaded new attributes")
+            
+            # Combine previous and new attributes
+            attributes_df = pd.concat([previous_keep_df, new_attributes_df], ignore_index=True)
+            attributes_df['is_duplicate'] = False  # Reset duplicate status
+            attributes_df['duplicate_group_id'] = None  # Reset group ID
+            attributes_df['should_remove'] = False  # Reset removal flag
+            
+            logger.info(f"Combined dataset contains {len(attributes_df)} attributes")
+        else:
+            # Standard mode - load new attributes only
+            logger.info(f"Loading attributes from {input_file} (standard mode)")
+            attributes_df = data_utility.text_operation('load', input_file, file_type='csv')
+            attributes_df['source'] = 'new'
+            attributes_df['first_seen_in_round'] = 1  # First round
+            logger.info(f"Loaded {len(attributes_df)} attributes from {input_file}")
+            logger.info("PROGRESS: 15% - Loaded attributes")
         
         # Save a copy of the original data
+        logger.info("Saving copy of original data...")
         attributes_df.to_csv(tmp_dir / "original_attributes.csv", index=False)
+        logger.info("PROGRESS: 20% - Saved original data")
     except Exception as e:
         logger.error(f"Error loading input file: {e}")
         raise
@@ -120,6 +190,7 @@ def process_attributes(input_file: str, config_path: Optional[str] = None) -> st
     # Step 1: Apply text embedding model
     try:
         logger.info("Step 1: Applying text embedding model")
+        logger.info("PROGRESS: 25% - Starting embedding generation")
         embeddings = embed_attributes(
             attributes_df=attributes_df,
             model_path=config["embedding"]["model_path"],
@@ -128,7 +199,9 @@ def process_attributes(input_file: str, config_path: Optional[str] = None) -> st
         logger.info(f"Generated {len(embeddings)} embeddings")
         
         # Save embeddings
+        logger.info("Saving embeddings to disk...")
         np.save(embedding_dir / "attribute_embeddings.npy", embeddings)
+        logger.info("PROGRESS: 40% - Embeddings generated and saved")
     except Exception as e:
         logger.error(f"Error in embedding step: {e}")
         raise
@@ -136,6 +209,7 @@ def process_attributes(input_file: str, config_path: Optional[str] = None) -> st
     # Step 2: Apply K-means clustering
     try:
         logger.info("Step 2: Applying K-means clustering")
+        logger.info("PROGRESS: 45% - Starting clustering")
         attributes_with_clusters, clustering_results = cluster_embeddings(
             embeddings=embeddings,
             attributes_df=attributes_df,
@@ -143,7 +217,8 @@ def process_attributes(input_file: str, config_path: Optional[str] = None) -> st
             max_clusters=config["clustering"]["max_clusters"],
             output_dir=clustering_dir
         )
-        logger.info(f"Clustered attributes into {clustering_results['n_clusters']} clusters")
+        logger.info(f"Clustered attributes into {len(attributes_with_clusters['cluster_id'].unique())} clusters")
+        logger.info("PROGRESS: 60% - Clustering complete")
         
         # Save clustering results
         with open(clustering_dir / "clustering_results.json", 'w') as f:
@@ -166,23 +241,29 @@ def process_attributes(input_file: str, config_path: Optional[str] = None) -> st
     # Step 3 & 4: Detect duplicates and select best attributes
     try:
         logger.info("Step 3 & 4: Detecting duplicates and selecting best attributes")
+        logger.info("PROGRESS: 65% - Starting duplicate detection")
         result_df = detect_duplicates(
             attributes_with_clusters=attributes_with_clusters,
             model_path=config["language_model"]["model_path"],
             output_dir=duplicate_dir,
-            provider=config["language_model"]["provider"]
+            provider=config["language_model"]["provider"],
+            incremental=incremental,
+            tmp_llm_responses_dir=llm_responses_dir
         )
         logger.info(f"Completed duplicate detection")
         
         # Save intermediate results
+        logger.info("Saving duplicate detection results...")
         result_df.to_csv(duplicate_dir / "attributes_with_duplicates.csv", index=False)
+        logger.info("PROGRESS: 80% - Duplicate detection complete")
     except Exception as e:
         logger.error(f"Error in duplicate detection step: {e}")
         raise
     
-    # Step 5: Generate final output
+    # Step 5: Prepare final output
     try:
-        logger.info("Step 5: Generating final output")
+        logger.info("Step 5: Preparing final output")
+        logger.info("PROGRESS: 85% - Preparing final output")
         
         # Create final output DataFrame
         final_df = attributes_df.copy()
@@ -190,54 +271,111 @@ def process_attributes(input_file: str, config_path: Optional[str] = None) -> st
         final_df['duplicate_group_id'] = result_df['duplicate_group_id']
         final_df['should_remove'] = ~result_df['keep']
         
-        # Save final output
-        output_file = result_dir / "deduplication_results.csv"
-        final_df.to_csv(output_file, index=False)
+        # Remove duplicate column (source and first_seen_in_round contain the same information)
+        # Keep only the source column as requested
+        if 'first_seen_in_round' in final_df.columns:
+            final_df = final_df.drop(columns=['first_seen_in_round'])
         
-        # Generate summary
+        # Calculate statistics for metadata
+        total_attributes = len(attributes_df)
+        duplicate_attributes = sum(result_df['is_duplicate']) if 'is_duplicate' in result_df.columns else 0
+        attributes_to_remove = sum(~result_df['keep']) if 'keep' in result_df.columns else 0
+        attributes_to_keep = total_attributes - attributes_to_remove
+        
+        # Generate run metadata
+        logger.info("Generating run metadata...")
+        run_metadata = {
+            "run_id": run_id,
+            "input_file": str(input_file),
+            "incremental": incremental,
+            "previous_results": str(previous_results) if previous_results else None,
+            "config": config,
+            "timestamp": datetime.now().isoformat(),
+            "stats": {
+                "total_attributes": total_attributes,
+                "duplicates_found": int(duplicate_attributes),
+                "attributes_to_keep": int(attributes_to_keep),
+                "attributes_to_remove": int(attributes_to_remove),
+                "clusters": len(attributes_with_clusters['cluster_id'].unique()) if 'cluster_id' in attributes_with_clusters.columns else 0,
+                "duplicate_groups": len(result_df[result_df['is_duplicate']]['duplicate_group_id'].unique()) if 'is_duplicate' in result_df.columns and 'duplicate_group_id' in result_df.columns else 0
+            },
+            "processing_time_seconds": time.time() - start_time
+        }
+        logger.info("PROGRESS: 90% - Run metadata generated")
+        
+        # Save final results
+        logger.info("Saving final results and metadata...")
+        final_output_path = result_dir / "deduplication_results.csv"
+        result_df.to_csv(final_output_path, index=False)
+        
+        # Save metadata
+        with open(result_dir / "run_metadata.json", 'w') as f:
+            json.dump(run_metadata, f, indent=4, default=str)
+        logger.info("PROGRESS: 100% - Process complete")
+        
+        # Also save a copy to the main results directory for easy access
+        # This is especially useful for incremental mode to find the latest results
+        main_output_file = Path(config["output"]["result_dir"]) / "latest_deduplication_results.csv"
+        final_df.to_csv(main_output_file, index=False)
+        
+        # Calculate statistics for metadata
         total_attributes = len(final_df)
         duplicate_attributes = sum(final_df['is_duplicate'])
         attributes_to_remove = sum(final_df['should_remove'])
         attributes_to_keep = total_attributes - attributes_to_remove
         
-        summary = {
-            "total_attributes": total_attributes,
-            "duplicate_attributes": duplicate_attributes,
-            "attributes_to_remove": attributes_to_remove,
-            "attributes_to_keep": attributes_to_keep,
-            "duplicate_percentage": round(duplicate_attributes / total_attributes * 100, 2) if total_attributes > 0 else 0,
-            "processing_time_seconds": round(time.time() - start_time, 2)
-        }
+        # Run metadata is already defined above
         
-        # Save summary
+        with open(result_dir / "run_metadata.json", 'w') as f:
+            json.dump(run_metadata, f, indent=2)
+        
+        # Save summary (using stats from run_metadata)
         with open(result_dir / "deduplication_summary.json", 'w') as f:
-            json.dump(summary, f, indent=4)
+            json.dump(run_metadata["stats"], f, indent=4)
+        # Log completion
+        logger.info(f"Deduplication completed in {time.time() - start_time:.2f} seconds")
+        logger.info(f"Found {run_metadata['stats']['duplicates_found']} duplicates in {run_metadata['stats']['total_attributes']} attributes")
+        logger.info(f"Final results saved to {final_output_path}")
+        logger.info("========== ATTRIBUTE PROCESSING COMPLETE ===========")
         
-        logger.info(f"Deduplication complete. Results saved to {output_file}")
-        logger.info(f"Summary: {summary}")
-        
-        return str(output_file)
+        return str(final_output_path)
     except Exception as e:
         logger.error(f"Error in final output generation: {e}")
         raise
+    finally:
+        # Clean up the file handler
+        logger.removeHandler(file_handler)
+        file_handler.close()
 
 def main():
-    """Main entry point for the script."""
-    parser = argparse.ArgumentParser(description='Identify duplicate data attributes')
-    parser.add_argument('--input', type=str, required=True, help='Path to the input CSV file')
-    parser.add_argument('--config', type=str, help='Path to the configuration file')
-    
+    """Main function to run the attribute deduplication process."""
+    parser = argparse.ArgumentParser(description="Data attribute deduplication")
+    parser.add_argument("--input", type=str, required=True, help="Path to input CSV file")
+    parser.add_argument("--config", type=str, help="Path to configuration file")
+    parser.add_argument("--previous_results", type=str, help="Path to previous deduplication results for incremental mode")
+    parser.add_argument("--incremental", action="store_true", help="Run in incremental mode, building on previous results")
+    parser.add_argument("--run_id", type=str, help="Custom run identifier (default: auto-generated from timestamp and batch name)")
     args = parser.parse_args()
     
-    try:
-        output_file = process_attributes(args.input, args.config)
-        print(f"Deduplication complete. Results saved to {output_file}")
-    except Exception as e:
-        logger.error(f"Error in main process: {e}")
-        print(f"Error: {e}")
-        return 1
+    # Validate arguments for incremental mode
+    if args.incremental and not args.previous_results:
+        parser.error("--previous_results is required when using --incremental mode")
     
-    return 0
+    try:
+        output_file = process_attributes(
+            args.input, 
+            args.config, 
+            args.previous_results if args.incremental else None,
+            args.incremental,
+            args.run_id
+        )
+        
+        print(f"Deduplication complete. Results saved to {output_file}")
+        return 0
+    except Exception as e:
+        logging.error(f"Error in deduplication process: {e}", exc_info=True)
+        print(f"Error: {e}")
+        return 1  # Return non-zero exit code to signal failure
 
 if __name__ == "__main__":
     exit(main())

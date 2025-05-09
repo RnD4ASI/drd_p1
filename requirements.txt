@@ -7,3 +7,12 @@ sentence-transformers>=2.2.0
 torch>=1.10.0
 pyyaml>=6.0
 pathlib>=1.0.1
+python-dotenv>=1.0.0
+# Azure OpenAI dependencies
+openai>=1.6.0
+azure-identity>=1.15.0
+azure-core>=1.29.0
+azure-storage-blob>=12.17.0
+# Model acceleration
+accelerator>=0.20.0
+accelerate>=1.6.0

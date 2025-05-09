@@ -9,8 +9,9 @@ This document provides detailed instructions on how to set up and execute the da
 4. [Configuration](#configuration)
 5. [Environment Variables](#environment-variables)
 6. [Execution](#execution)
-7. [Output](#output)
-8. [Troubleshooting](#troubleshooting)
+7. [Incremental Deduplication](#incremental-deduplication)
+8. [Output](#output)
+9. [Troubleshooting](#troubleshooting)
 
 ## System Overview
 
@@ -171,6 +172,66 @@ python -m src.main --input path/to/input.csv --config custom_config.yaml
    ```bash
    python -m src.main --input data/attributes.csv --embedding_provider azure_openai --language_model_provider azure_openai
    ```
+
+## Incremental Deduplication
+
+The system supports incremental deduplication, allowing you to process new batches of attributes while maintaining consistency with previously deduplicated data.
+
+### Overview
+
+Incremental deduplication works in two main scenarios:
+
+1. **Initial Deduplication (Round 1)**: Process the first batch of attributes using the standard mode.
+2. **Subsequent Rounds**: Process new batches of attributes while incorporating the results from previous rounds.
+
+### How It Works
+
+1. The system loads the previous deduplication results and keeps only the non-duplicate attributes or the best attributes from each duplicate group.
+2. New attributes are loaded and combined with the previously kept attributes.
+3. The combined dataset goes through the same deduplication process (embedding, clustering, duplicate detection).
+4. When selecting the best attribute from each duplicate group, the system prioritizes attributes from previous rounds.
+
+### Command-Line Usage
+
+```bash
+python -m src.main --input new_attributes.csv --previous_results result/deduplication_results.csv --incremental
+```
+
+### Parameters
+
+- `--input`: Path to the CSV file containing new attributes to process
+- `--previous_results`: Path to the CSV file containing results from a previous deduplication round
+- `--incremental`: Flag to enable incremental mode
+
+### Example Workflow
+
+1. **Round 1**: Process initial batch of attributes
+   ```bash
+   python -m src.main --input batch1.csv
+   ```
+
+2. **Round 2**: Process second batch, incorporating results from Round 1
+   ```bash
+   python -m src.main --input batch2.csv --previous_results result/deduplication_results.csv --incremental
+   ```
+
+3. **Round 3**: Process third batch, incorporating results from Round 2
+   ```bash
+   python -m src.main --input batch3.csv --previous_results result/deduplication_results_round2.csv --incremental
+   ```
+
+### Output
+
+The output format remains the same as in standard mode, but includes additional columns:
+
+- `source`: Indicates whether the attribute is from a previous round (`existing`) or the current round (`new`)
+- `first_seen_in_round`: Indicates in which deduplication round the attribute was first processed
+
+### Best Practices
+
+1. **Maintain Version History**: Keep results from each deduplication round in separate files with clear naming.
+2. **Consistent Configuration**: Use the same configuration settings across rounds for consistent results.
+3. **Review Results**: After each round, review the results to ensure the deduplication decisions align with your expectations.
 
 ## Input Format
 
